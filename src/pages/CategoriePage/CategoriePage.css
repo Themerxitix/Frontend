@@ -1,0 +1,118 @@
+.list-categorie-page
+{
+    display:flex;
+    flex-wrap: wrap-reverse;
+    margin: 10px;
+    padding: 30px;
+    justify-items: center;
+}
+
+.card-categorie-page
+{
+    flex: 1;
+    margin: 20px;
+    padding: 30px;
+    box-shadow: 0 10px 20px 0 white;
+    border-radius: 10% 50% 70%;
+    background: white;
+    color: bisque;
+    transition: flex .2s ease-in;
+}
+
+.card-categorie-page:hover{
+    color: black;
+    background-color: black;
+    box-shadow: 0 50px 90px 0 bisque;
+    flex: 2;
+}
+.card-categorie-page:hover .titel-categorie-page{
+    color: bisque;
+    flex: 2;
+}
+
+.text-categorie-page
+{
+    text-decoration: none;
+}
+
+.img-categorie-page
+{
+    box-shadow: 0 50px 90px 0 black;
+    height: 270px;
+    border-radius: 10% 50% 70%;
+}
+
+.img-categorie-page:hover{
+    box-shadow: 0 50px 90px 0 bisque;
+    height: 270px;
+    border-radius: 10% 50% 70%;
+}
+
+.titel-categorie-page
+{
+    display: flex;
+    justify-content: center;
+    margin: 0;
+    list-style-type: none;
+    color: black
+}
+
+.categorie-price{
+    color: black;
+    display: none;
+    position: absolute;
+    background: bisque;
+    padding: 5px;
+    justify-content: center;
+}
+
+a:hover .categorie-price  {
+    justify-content: center;
+    display: inline-block; text-align: center;
+    width: 100px;
+    color: #000;
+    font-size: 18px;
+    text-transform: uppercase;
+    font-weight: bold;
+    border-radius: 10% 50% 70%;
+
+}
+
+.sub-nav{
+    display: flex;
+    justify-content: space-between;
+    margin: 0;
+    padding: 0;
+
+}
+
+.separate-categorie-name{
+    justify-content: center;
+    list-style-type: none;
+    color: bisque;
+    text-decoration: none;
+    display: flex;
+    padding: 10px;
+    border-radius: 50% 50% 50% 50%;
+    margin: 10px;
+    background-color: black;
+    box-shadow: 0 10px 20px 0 bisque;
+    font-weight: bold;
+}
+
+.back-to-categories{
+    display: flex;
+    padding: 10px;
+    border-radius: 70% 50% 10%;
+    margin: 10px;
+    background-color: black;
+    list-style-type: none;
+    color: bisque;
+    text-decoration: none;
+    box-shadow: 0 1px 20px 0 bisque;
+}
+
+.back-to-categories:hover{
+    background-color: bisque;
+    color: black;
+}

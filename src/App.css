@@ -1,38 +1,51 @@
-.App {
-  text-align: center;
+/*////////////////////////
+    Table of Contents
+    1. Global Styles
+    2. Areas
+        2.1 Navigation
+        2.2 Header
+        2.3 Products
+    3. Media Queries
+////////////////////////*/
+
+/* ------------------------------- 1. Global Styles -------------------------------- */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;600&display=swap');
+
+* {
+    box-sizing: border-box;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+body {
+    overflow-x:hidden;
+    font-family: "Poppins", sans-serif;
+    background-color: gray;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+/* ------------------------------- 2. Areas ---------------------------------------- */
+
+/* --------------- 2.3 Products ------------------- */
+
+
+.shopping-cart-icon {
+    width: 32px;
+    height: 32px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.shopping-cart-icon > path {
+    fill: white;
 }
 
-.App-link {
-  color: #61dafb;
-}
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+
+/* ------------------------------- 3. Media Queries -------------------------------- */
+
+@media screen and (max-width: 1200px) {
+    main {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .product {
+        flex-grow: 1;
+    }
 }

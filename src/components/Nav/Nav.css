@@ -1,0 +1,98 @@
+/*.navbar{
+    !*display: flex;*!
+    !*justify-content: center; !*hiermee zet ik de navbar centraal*!*!
+
+}*/
+
+.nav-ul
+{
+    list-style-type: none; /*hier mee haal ik de * weg*/
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: black;
+    box-shadow: 0 8px 8px 0 bisque;
+
+}
+
+.nav-li
+{
+    float: left; /*hier mee zet ik de navi balk op een rij, right had ook gekund*/
+    background-color: black;
+    box-shadow: 0 1px 20px 0 bisque;
+    border-radius: 10% 50% 70%;
+    margin: 10px;
+}
+
+.nav-li:hover
+{
+    background-color: bisque;
+    box-shadow: 0 10px 20px 0 bisque;
+    border-radius: 10% 50% 70%;
+
+}
+
+nav
+{
+    position: sticky; /*dit zorgt ervoor dat de nav tijdens het scrollen aanwezig is*/
+    top: 0;
+}
+
+.nav-about
+{
+    float: right;
+    box-shadow: 0 1px 20px 0 bisque;
+    border-radius: 10% 50% 70%;
+    margin: 10px;
+}
+
+.nav-about:hover
+{
+    background-color: bisque;
+    box-shadow: 0 10px 20px 0 bisque;
+    border-radius: 10% 50% 70%;
+
+}
+
+
+.logout
+{
+    float: right;
+    box-shadow: 0 1px 20px 0 bisque;
+    border-radius: 10% 50% 70%;
+    background-color: bisque;
+    border: none;
+    font-size: 22px;
+    list-style-type: none; /*hier mee haal ik de * weg*/
+    margin: 11px;
+    padding: 10px;
+    cursor: pointer;
+
+}
+
+
+
+/*geselecteerde pagina wordt gekleurd*/
+.active-menu-link
+{
+    background-color: bisque;
+    color: black;
+    display: block;
+    padding: 14px 16px;
+    text-decoration: none;/*geen onder_score_strep____*/
+    border-radius: 10% 50% 70%;
+    box-shadow: 0 10px 20px 0 rgb(5, 35, 47);
+    font-weight: bold;
+}
+
+/*opmaak van de rest van de pagina's*/
+.default-menu-link
+{
+    background-color: gray;
+    color: black;
+    display: block;
+    padding: 14px 16px;
+    text-decoration: none;
+    border-radius: 10% 50% 70%;
+
+}
