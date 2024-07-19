@@ -1,10 +1,9 @@
-import React, {useContext, useEffect} from "react";
-import axios, {get} from "axios";
-import  {useState} from "react"
-import {Link, useParams} from "react-router-dom";
+import React, { useContext, useEffect, useState } from "react";
+import axios from "axios";
+import { Link, useParams } from "react-router-dom";
 import "./ProductPage.css"
-import {CartContext} from "../../context/CartContext";
-import {ProductContext} from "../../context/ProductContext";
+import { CartContext } from "../../context/CartContext";
+import { ProductContext } from "../../context/ProductContext";
 
 
 const ProductPage = () => {
@@ -21,50 +20,44 @@ const ProductPage = () => {
 
         const fetchData = async () => {
             setLoading(true);
+            setError(false);
 
             try {
-                setError(false);
-
-                const response = await axios.get(  " https://fakestoreapi.com/products/" + id, {
+                const response = await axios.get(`https://fakestoreapi.com/products/${id}`, {
                     signal: controller.signal,
-            } );
+                });
                 setData(response.data);
-
-            }catch (e){
-
-                if (axios.isCancel(e)){
-
-                }else {
-                    console.error(e)
-                    setError(true)
+            } catch (e) {
+                if (!axios.isCancel(e)) {
+                    console.error(e);
+                    setError("Er is een fout opgetreden bij het ophalen van de productgegevens.");
                 }
+            } finally {
+                setLoading(false);
             }
-            setLoading(false);
-        }
-        void fetchData();
-        return function cleanup(){
+        };
+
+        fetchData();
+
+        return function cleanup() {
             controller.abort();
-        }
-    },  [] );
+        };
+    }, [id]);
 
 
     //Data die ik ophaal uithalen voor elke product
 
     const {title, image, price, description, category } = data;
 
-    const checkdescription = (description) => {
-        if(description){
-            return `${description.slice(0, 90)} ... ${description.slice(description.length - 5)}`
+    const truncateText = (text, maxLength) => {
+        if (text && text.length > maxLength) {
+            return `${text.slice(0, maxLength)}...${text.slice(-5)}`;
         }
-        return description;
-    }
+        return text;
+    };
 
-    const checktitle = (title) => {
-        if(title){
-            return `${title.slice(0, 20)} ... ${title.slice(title.length - 5)}`
-        }
-        return title;
-    }
+    const checkDescription = (description) => truncateText(description, 90);
+    const checkTitle = (title) => truncateText(title, 20);
 
     const product = products.find((item) => {
         return item.id === parseInt(id);
