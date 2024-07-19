@@ -86,43 +86,25 @@ const ProductPage = () => {
                 </h3>
             </div>
 
-            <div  className="product-page">
-                <img className="product-page-img" src={image} />
-
-                    <h3 className="product-page-titel">
-                        {
-                           checktitle(title)
-                        }
-                    </h3>
-
-                    <span className="product-page-description">
-                    {
-                        checkdescription(description)
-                    }
-                    </span>
-
-                    <span className="product-page-price">
-                        <h3>
-                          €{price}
-                        </h3>
-
-                    </span>
-
-
-                    <button className="product-page-button" type="button" onClick={() => addToCart(product, product.id)}  >
-                    Add to cart
-                    </button>
-
-
-                {/*nog niet af*/}
-                <div>
-                    <h2>Type you Review</h2>
-                    <input className="review" type="text"  />
-                    <button className="review-button" >
-                        Send your review
-                    </button>
+            <div className="product-page">
+                <div className="product-image-container">
+                    <img className="product-image" src={image} alt={title} />
                 </div>
-
+                <div className="product-details">
+                    <h1 className="product-title">{checktitle(title)}</h1>
+                    <p className="product-description">{checkdescription(description)}</p>
+                    <div className="product-price-container">
+                        <span className="product-price">€{price.toFixed(2)}</span>
+                        <button className="add-to-cart-button" onClick={() => addToCart(product, product.id)}>
+                            Add to cart
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div className="review-section">
+                <h2>Write a Review</h2>
+                <textarea className="review-input" placeholder="Type your review here..."></textarea>
+                <button className="review-button">Send your review</button>
             </div>
         </>
     );

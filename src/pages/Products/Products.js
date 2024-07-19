@@ -49,17 +49,18 @@ const Products = () => {
 
             {/*<Link type="link" onClick={fetchData}>Show Products</Link>*/}
 
-            <div className="list-product">
-
+            <div className="product-grid">
                 {data.map(product => {
                     return (
-                        <div className="card-product" key={product.id}>
-                          <Link className="text-product" to={`/products/${product.id}`}>
-                                <div>
-                                    <img className="img-product" src={product.image} alt={product.title}/>
-                                    <h3 className="titel-product">{product.title.slice(0, 20)}</h3>
+                        <div className="product-card" key={product.id}>
+                            <Link className="product-link" to={`/products/${product.id}`}>
+                                <div className="product-image-container">
+                                    <img className="product-image" src={product.image} alt={product.title}/>
                                 </div>
-                                <span className="product-price">€ {product.price}</span>
+                                <div className="product-info">
+                                    <h3 className="product-title">{product.title.slice(0, 20)}</h3>
+                                    <span className="product-price">€ {product.price.toFixed(2)}</span>
+                                </div>
                             </Link>
                         </div>
                     )

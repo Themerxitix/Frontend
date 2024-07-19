@@ -15,68 +15,58 @@ const Nav = () => {
     return(
 
         <nav className="navbar">
-
-            <ul className="nav-ul">
-
-                <li className="nav-li">
-                    <NavLink to="/"  className={({ isActive}) =>  isActive === true ? 'active-menu-link' : 'default-menu-link'}>
-                        Home
-                    </NavLink>
-                </li>
-
-                <li className="nav-li">
-                    <NavLink to="/products" className={({ isActive}) => isActive === true ? 'active-menu-link' : 'default-menu-link'}>
-                        Products
-                    </NavLink>
-                </li>
-
-                <li className="nav-li" >
-
-                    <NavLink to="/categories" className={({ isActive}) => isActive === true ? 'active-menu-link' : 'default-menu-link'} >
-                        Categories
-                    </NavLink>
-                </li>
-
-                <li className="nav-about">
-                    <NavLink to="/cart" className={({ isActive}) => isActive === true ? 'active-menu-link' : 'default-menu-link'}>
-                        Cart
-                    </NavLink>
-                </li>
-
-                {!isAuth &&
-
-                <li className="nav-about" >
-
-                    <NavLink to="/registratie" className={({ isActive}) => isActive === true ? 'active-menu-link' : 'default-menu-link'} >
-                        Registration
-                    </NavLink>
-                </li>
-
-                }
-
-                <li className="nav-about">
-                    {isAuth && <NavLink to="/profile" className={({ isActive}) => isActive === true ? 'active-menu-link' : 'default-menu-link'}>
-                        Profile
-                    </NavLink>
-                    }
-                </li>
-
-
-                    {isAuth &&
-                        <li >
-                            <button className="logout" type="button" onClick={logout}>Logout</button>
+            <div className="nav-container">
+                <NavLink to="/" className="nav-logo">
+                    YourShopName
+                </NavLink>
+                <ul className="nav-menu">
+                    <li className="nav-item">
+                        <NavLink to="/" className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}>
+                            Home
+                        </NavLink>
+                    </li>
+                    <li className="nav-item">
+                        <NavLink to="/products" className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}>
+                            Products
+                        </NavLink>
+                    </li>
+                    <li className="nav-item">
+                        <NavLink to="/categories" className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}>
+                            Categories
+                        </NavLink>
+                    </li>
+                    <li className="nav-item">
+                        <NavLink to="/cart" className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}>
+                            Cart
+                        </NavLink>
+                    </li>
+                    {!isAuth && (
+                        <li className="nav-item">
+                            <NavLink to="/registratie" className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}>
+                                Registration
+                            </NavLink>
                         </li>
-                    }
-                    {
-                        !isAuth &&
-                        <li className="nav-about">
-                            <NavLink to="/login" className={({ isActive}) => isActive === true ? 'active-menu-link' : 'default-menu-link'}>
+                    )}
+                    {isAuth && (
+                        <li className="nav-item">
+                            <NavLink to="/profile" className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}>
+                                Profile
+                            </NavLink>
+                        </li>
+                    )}
+                    {isAuth ? (
+                        <li className="nav-item">
+                            <button className="nav-button" onClick={logout}>Logout</button>
+                        </li>
+                    ) : (
+                        <li className="nav-item">
+                            <NavLink to="/login" className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}>
                                 Login
                             </NavLink>
                         </li>
-                    }
-
-            </ul>
+                    )}
+                </ul>
+            </div>
         </nav>
     )
 }
