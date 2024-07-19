@@ -5,15 +5,20 @@ import "./ProductPage.css"
 import { CartContext } from "../../context/CartContext";
 import { ProductContext } from "../../context/ProductContext";
 
-
 const ProductPage = () => {
+    // State voor laden, fouten en productdata
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState(false);
-    const [data, setData] = useState([]);
+    const [data, setData] = useState(null);
 
-    const {addToCart} = useContext(CartContext);
+    // Haal addToCart functie uit CartContext
+    const { addToCart } = useContext(CartContext);
+    
+    // Haal producten uit ProductContext
     const { products } = useContext(ProductContext);
-    const {id} = useParams();
+    
+    // Haal product-id uit URL parameters
+    const { id } = useParams();
 
     useEffect(() => {
         const controller = new AbortController();
