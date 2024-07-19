@@ -1,83 +1,58 @@
 
-.list-product
-{
-    display:flex;
-    flex-wrap:wrap;
-    margin: 10px;
-    padding: 30px;
-    justify-items: center;
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 2rem;
+    padding: 2rem;
 }
 
-
-.card-product
-{
-    flex: 1;
-    margin: 20px;
-    padding: 30px;
-    box-shadow: 0 10px 20px 0 bisque;
-    border-radius: 10% 50% 70%;
+.product-card {
     background: white;
-    color: bisque;
-    transition: flex .2s ease-in;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden;
 }
 
-.card-product:hover  {
-    color: black;
-    background-color: black;
-    box-shadow: 0 50px 90px 0 bisque;
-    flex: 2;
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
-.card-product:hover .titel-product{
-    color: bisque;
-    flex: 2;
-}
-.img-product
-{
-    box-shadow: 0 50px 90px 0 black;
-    height: 270px;
-    border-radius: 10% 50% 70%;
-
-}
-.img-product:hover
-{
-    box-shadow: 0 50px 90px 0 bisque;
-    height: 270px;
-    border-radius: 10% 50% 70%;
-
-}
-.titel-product
-{
-    display: flex;
-    justify-content: center;
-    margin: 0;
-    list-style-type: none;
-    color: black
-
-}
-
-
-.text-product{
+.product-link {
     text-decoration: none;
+    color: inherit;
 }
 
-.product-price{
-    color: black;
-    display: none;
-    position: absolute;
-    background: bisque;
-    padding: 5px;
-    justify-content: center;
+.product-image-container {
+    height: 200px;
+    overflow: hidden;
 }
 
-a:hover .product-price  {
-    justify-content: center;
-    display: inline-block; text-align: center;
-    width: 100px;
-    color: #000;
-    font-size: 18px;
-    text-transform: uppercase;
+.product-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.product-card:hover .product-image {
+    transform: scale(1.05);
+}
+
+.product-info {
+    padding: 1rem;
+}
+
+.product-title {
+    margin: 0;
+    font-size: 1rem;
+    color: #333;
+}
+
+.product-price {
+    display: block;
+    margin-top: 0.5rem;
     font-weight: bold;
-    border-radius: 10% 50% 70%;
-
+    color: #e74c3c;
 }
