@@ -14,9 +14,9 @@ const Nav = () => {
 
     return(
 
-        <nav className="navbar">
+        <nav className="navbar" aria-label="Hoofdnavigatie">
             <div className="nav-container">
-                <NavLink to="/" className="nav-logo">
+                <NavLink to="/" className="nav-logo" aria-label="Home">
                     YourShopName
                 </NavLink>
                 <ul className="nav-menu">

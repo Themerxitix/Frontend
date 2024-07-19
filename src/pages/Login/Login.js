@@ -26,7 +26,9 @@ function Login() {
         }
         catch (e)
         {
-            console.error("Onjuist email en wachtwoord combinatie")
+            console.error("Onjuist email en wachtwoord combinatie");
+            // Toon een foutmelding aan de gebruiker
+            setError("Onjuiste gebruikersnaam of wachtwoord. Probeer het opnieuw.");
         }
 
 

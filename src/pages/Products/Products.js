@@ -8,6 +8,7 @@ const Products = () => {
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState(false);
     const [data, setData] = useState([]);
+    const [searchTerm, setSearchTerm] = useState("");
 
     useEffect(()=> {
         const controller = new AbortController();
@@ -44,13 +45,22 @@ const Products = () => {
     return (
 
         <>
-            {loading && <p>Loading...</p>}  {/*als loading is true, wordt dit getoond*/}
-            {error && <p>Error: could not fetch data!</p>}  {/*als error is true, wordt dit getoond*/}
+            {loading && <p>Loading...</p>}
+            {error && <p>Error: could not fetch data!</p>}
 
-            {/*<Link type="link" onClick={fetchData}>Show Products</Link>*/}
+            <div className="search-bar">
+                <input
+                    type="text"
+                    placeholder="Zoek producten..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                />
+            </div>
 
             <div className="product-grid">
-                {data.map(product => {
+                {data.filter(product => 
+                    product.title.toLowerCase().includes(searchTerm.toLowerCase())
+                ).map(product => {
                     return (
                         <div className="product-card" key={product.id}>
                             <Link className="product-link" to={`/products/${product.id}`}>
