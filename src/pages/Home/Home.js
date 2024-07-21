@@ -11,15 +11,14 @@ const Home = () => {
         <>
             <div className="welcome-photo">
 
-
-
             </div>
 
         </>
     )
 }
 
-export default Home;
+export default Home
+
 
 
 
