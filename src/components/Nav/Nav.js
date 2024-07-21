@@ -17,7 +17,7 @@ const Nav = () => {
         <nav className="navbar" aria-label="Hoofdnavigatie">
             <div className="nav-container">
                 <NavLink to="/" className="nav-logo" aria-label="Home">
-                    YourShopName
+                    All-In-One Store
                 </NavLink>
                 <ul className="nav-menu">
                     <li className="nav-item">

@@ -3,6 +3,7 @@ import {useNavigate} from "react-router-dom";
 import jwt_decode from "jwt-decode"
 import {checkToken} from "../content/checkToken";
 import axios from "axios";
+import React from 'react'
 
 /*hier maak ik gebruik van Context, dat doe ik aan de hand van de creatContext hook, deze kan een default meegegeven, maar dat is onder aan text al doorgegeven dus zet ik deze op null*/
 /*met een hoofdletter want het wordt een component die om de children heen wikkel, en het gebruik AuthContext op andere plekken ga ik exporteren*/
