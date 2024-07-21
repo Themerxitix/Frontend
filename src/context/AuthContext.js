@@ -24,36 +24,22 @@ function AuthContextProvider({children})
 
     /*kijken of een token is opgeslagen*/
 
-    useEffect(()=>
-    {
-        /*kijk of een token in de local storage is, daarvoor spreek ik de local storage aan*/
-        /*variable storedToken, gebruiken om te kijken of iets daar word opgeslagen*/
-       const storedToken = localStorage.getItem('token');
+    useEffect(() => {
+        const storedToken = localStorage.getItem('token');
 
-       if (storedToken && checkToken(storedToken))
-       {
-          void login(storedToken);
-       }
-       else
-       {
-           /*roken niet meer geldig, uitloggen*/
-           setAuth(
-               {
-                   ...auth,
-                   isAuth: false,
-                   user: null,
-                   status: "done"
-               }
-           )
-       }
-
+        if (storedToken && checkToken(storedToken)) {
+            void login(storedToken);
+        } else {
+            setAuth({
+                isAuth: false,
+                user: null,
+                status: "done"
+            });
+        }
     }, []);
 
-    /*isAuth aanpassen met login knop naar ture, en logout naar false*/
-  async  function login(jtw_token, redirect)
+    async function login(jwt_token, redirect)
     {
-
-        const decodeToken = jwt_decode(jtw_token);
 
         /*token opslaan in local storage*/
         localStorage.setItem('token', jtw_token);

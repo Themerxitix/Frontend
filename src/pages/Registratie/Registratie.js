@@ -15,7 +15,7 @@ function Registratie() {
         setSuccess(false);
 
         try {
-            const res = await axios.post('https://frontend-educational-backend.herokuapp.com/api/auth/signup', {
+            await axios.post('https://frontend-educational-backend.herokuapp.com/api/auth/signup', {
                 email,
                 password,
                 username,

@@ -1,6 +1,6 @@
-import React, {useContext, useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
-import {Routes,Route, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "./Categories.css"
 import electronics from './../../assets/electronics.jpg'
 import jewelery from './../../assets/jewelerys.jpg'

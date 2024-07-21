@@ -1,9 +1,7 @@
-import React, { useEffect, useState} from "react";
-import {Link, useParams} from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
 import axios from "axios";
-import "./CategoriePage.css"
-import  "../Categories/Categories";
-import categories from "../Categories/Categories";
+import "./CategoriePage.css";
 
 const CategoriePage = () =>{
     // State voor laden, fouten en productdata

@@ -1,15 +1,10 @@
-import {Link, NavLink, useNavigate} from "react-router-dom";
+import {NavLink} from "react-router-dom";
 import './Nav.css';
 import {AuthContext} from "../../context/AuthContext";
 import React, {useContext} from "react";
 
-
-
 const Nav = () => {
-
-    const {isAuth, logout} =useContext(AuthContext);
-
-    const navigate = useNavigate();
+    const {isAuth, logout} = useContext(AuthContext);
 
 
     return(
