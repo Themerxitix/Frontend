@@ -13,6 +13,8 @@ import Profile from "./pages/Profile/Profile";
 import { AuthContext } from "./context/AuthContext";
 import Registratie from "./pages/Registratie/Registratie";
 import Cart from "./pages/Cart/Cart"
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
     // Haal isAuth uit de AuthContext
@@ -33,6 +35,7 @@ function App() {
                 <Route path="cart" element={<Cart />} />
                 <Route path="*" element={<NotFound />} />
             </Routes>
+            <ToastContainer />
         </>
     )
 }
