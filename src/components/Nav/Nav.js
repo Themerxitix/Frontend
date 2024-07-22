@@ -11,12 +11,11 @@ const Nav = () => {
     const handleSearch = (e) => {
         e.preventDefault();
         if (searchTerm.trim()) {
-            navigate(`/search?q=${encodeURIComponent(searchTerm.trim())}`);
+            navigate(`/products?search=${encodeURIComponent(searchTerm.trim())}`);
         }
     };
 
     return(
-
         <nav className="navbar" aria-label="Hoofdnavigatie">
             <div className="nav-container">
                 <NavLink to="/" className="nav-logo" aria-label="Home">
@@ -72,12 +71,12 @@ const Nav = () => {
                 <form onSubmit={handleSearch} className="search-form">
                     <input
                         type="text"
-                        placeholder="Search products..."
+                        placeholder="Zoek producten..."
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
                         className="search-input"
                     />
-                    <button type="submit" className="search-button">Search</button>
+                    <button type="submit" className="search-button">Zoeken</button>
                 </form>
             </div>
         </nav>
