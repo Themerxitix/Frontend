@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
+import "./Registratie.css";
 
 function Registratie() {
-    // State voor formuliervelden
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [username, setUsername] = useState("");
@@ -20,9 +20,7 @@ function Registratie() {
                 password,
                 username,
             });
-            console.log("Registratie gelukt");
             setSuccess(true);
-            // Reset formuliervelden na succesvolle registratie
             setEmail("");
             setPassword("");
             setUsername("");
@@ -33,12 +31,12 @@ function Registratie() {
     }
 
     return (
-        <main>
+        <div className="registration-container">
             <h2>Registreren</h2>
             {success && <p className="success-message">Registratie succesvol! U kunt nu inloggen.</p>}
             {error && <p className="error-message">{error}</p>}
-            <form onSubmit={handleSubmit}>
-                <div>
+            <form onSubmit={handleSubmit} className="registration-form">
+                <div className="form-group">
                     <label htmlFor="username">Gebruikersnaam:</label>
                     <input
                         id="username"
@@ -48,7 +46,7 @@ function Registratie() {
                         required
                     />
                 </div>
-                <div>
+                <div className="form-group">
                     <label htmlFor="email">E-mail:</label>
                     <input
                         id="email"
@@ -58,7 +56,7 @@ function Registratie() {
                         required
                     />
                 </div>
-                <div>
+                <div className="form-group">
                     <label htmlFor="password">Wachtwoord:</label>
                     <input
                         id="password"
@@ -68,9 +66,9 @@ function Registratie() {
                         required
                     />
                 </div>
-                <button type="submit">Registreren</button>
+                <button type="submit" className="register-button">Registreren</button>
             </form>
-        </main>
+        </div>
     );
 }
 
