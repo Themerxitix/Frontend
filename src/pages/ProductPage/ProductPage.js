@@ -75,7 +75,7 @@ const ProductPage = () => {
                     <p className="product-description">{checkDescription(description)}</p>
                     <div className="product-price-container">
                         <span className="product-price">€{price.toFixed(2)}</span>
-                        <button className="add-to-cart-button" onClick={() => addToCart(product, product.id)}>
+                        <button className="add-to-cart-button" onClick={() => addToCart(data, data.id)}>
                             Add to cart
                         </button>
                     </div>
