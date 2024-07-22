@@ -37,28 +37,19 @@ const Categories = () => {
     },[] )
 
     return (
-        <>
-
-            {loading && <p>Loading...</p>}
-            {error && <p>Error: could not fetch data!</p>}
-
-
+        <div className="container">
+            {loading && <p className="loading">Loading...</p>}
+            {error && <p className="error">Error: could not fetch data!</p>}
             <ul className="list-categorie">
-                {data.map((categories) => {
-                return (
-                    <li className="card-categorie" key={categories.id}>
+                {data.map((categories) => (
+                    <li className="card-categorie card" key={categories}>
                         <Link className="link-categorie" to={`/categories/${categories}`}>
                             <div>
-                                <h3 className="nav-categorie">{categories.toUpperCase().charAt(0)+ categories.substring(1,categories.length)}</h3>
+                                <h3 className="nav-categorie">{categories.charAt(0).toUpperCase() + categories.slice(1)}</h3>
                             </div>
                         </Link>
-
                     </li>
-
-                )
-
-            })}
-
+                ))}
             </ul>
             <div className="welcome-photo"></div>
 
