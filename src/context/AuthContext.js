@@ -42,7 +42,7 @@ function AuthContextProvider({children})
     {
 
         /*token opslaan in local storage*/
-        localStorage.setItem('token', jtw_token);
+        localStorage.setItem('token', jwt_token);
 
         /*username ophalen mbv asynch functie*/
 
@@ -53,7 +53,7 @@ function AuthContextProvider({children})
                 headers:
                     {
                     'content-Type': 'application/json',
-                    Authorization: `Bearer ${ jtw_token }`
+                    Authorization: `Bearer ${jwt_token}`
                     }
             })
             setAuth({
