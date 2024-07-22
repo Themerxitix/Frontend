@@ -52,7 +52,7 @@ const Products = () => {
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                 />
-                <button onClick={refreshProducts}>Ververs producten</button>
+                <button onClick={refreshProducts}>Zoeken</button>
             </div>
 
             {/* Productengrid */}
