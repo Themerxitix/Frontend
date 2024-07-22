@@ -37,7 +37,6 @@ function Registratie() {
     return (
         <div className="registration-container">
             <h2>Registreren</h2>
-            {success && <p className="success-message">Registratie succesvol! U kunt nu inloggen.</p>}
             {error && <p className="error-message">{error}</p>}
             <form onSubmit={handleSubmit} className="registration-form">
                 <div className="form-group">
