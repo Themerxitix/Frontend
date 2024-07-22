@@ -48,6 +48,26 @@ body {
     .product {
         flex-grow: 1;
     }
-}body {
-  background-color: #f0f2f5;
+}
+
+body {
+  background-color: #e6e6fa; /* Lichte lavendel achtergrond */
+  color: #4a4a4a; /* Donkergrijze tekst voor betere leesbaarheid */
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #6a5acd; /* Slateblue voor koppen */
+}
+
+a {
+  color: #8a2be2; /* Blueviolet voor links */
+}
+
+button {
+  background-color: #9370db; /* Mediumpurple voor knoppen */
+  color: white;
+}
+
+button:hover {
+  background-color: #8a2be2; /* Blueviolet voor hover effect */
 }
