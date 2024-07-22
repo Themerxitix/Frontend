@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext, useCallback } from "react"
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import "./Products.css"
 import { ProductContext } from "../../context/ProductContext";
 
@@ -7,8 +7,13 @@ const Products = () => {
     // Haal producten en gerelateerde data/functies op uit de ProductContext
     const { products, loading, error, refreshProducts } = useContext(ProductContext);
     
+    // Gebruik useLocation om de zoekquery uit de URL te halen
+    const location = useLocation();
+    const searchParams = new URLSearchParams(location.search);
+    const initialSearchTerm = searchParams.get('search') || '';
+
     // State voor de zoekterm
-    const [searchTerm, setSearchTerm] = useState("");
+    const [searchTerm, setSearchTerm] = useState(initialSearchTerm);
     
     // State voor gefilterde producten
     const [filteredProducts, setFilteredProducts] = useState([]);
@@ -24,6 +29,14 @@ const Products = () => {
     useEffect(() => {
         setFilteredProducts(filterProducts());
     }, [filterProducts]);
+
+    // Effect om de zoekterm bij te werken wanneer de URL verandert
+    useEffect(() => {
+        const searchQuery = searchParams.get('search');
+        if (searchQuery) {
+            setSearchTerm(searchQuery);
+        }
+    }, [location.search]);
 
     return (
         <>
