@@ -4,7 +4,6 @@ import { Link, useParams } from "react-router-dom";
 import "./ProductPage.css"
 import { CartContext } from "../../context/CartContext";
 import { ProductContext } from "../../context/ProductContext";
-import { toast } from 'react-toastify';
 
 const ProductPage = () => {
     // State voor laden, fouten en productdata
@@ -82,15 +81,6 @@ const ProductPage = () => {
                             onClick={() => {
                                 addToCart(data, data.id);
                                 setAddedToCart(true);
-                                toast.success('Product added to cart!', {
-                                    position: "bottom-right",
-                                    autoClose: 2000,
-                                    hideProgressBar: false,
-                                    closeOnClick: true,
-                                    pauseOnHover: true,
-                                    draggable: true,
-                                    progress: undefined,
-                                });
                                 setTimeout(() => setAddedToCart(false), 2000);
                             }}
                         >
