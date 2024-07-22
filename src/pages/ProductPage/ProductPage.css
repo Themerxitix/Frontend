@@ -102,3 +102,22 @@
     background-color: #27ae60;
 }
 
+.reviews-list {
+    margin-top: 20px;
+}
+
+.review-item {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.review-item p {
+    margin-bottom: 5px;
+}
+
+.review-item small {
+    color: #666;
+}

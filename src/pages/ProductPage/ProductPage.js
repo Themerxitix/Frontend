@@ -4,12 +4,15 @@ import { Link, useParams } from "react-router-dom";
 import "./ProductPage.css"
 import { CartContext } from "../../context/CartContext";
 import { ProductContext } from "../../context/ProductContext";
+import { AuthContext } from "../../context/AuthContext";
 
 const ProductPage = () => {
     // State voor laden, fouten en productdata
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState(false);
     const [data, setData] = useState(null);
+    const [reviews, setReviews] = useState([]);
+    const [newReview, setNewReview] = useState("");
 
     // Haal addToCart functie uit CartContext
     const { addToCart } = useContext(CartContext);
@@ -17,6 +20,9 @@ const ProductPage = () => {
     
     // Haal producten uit ProductContext
     const { products } = useContext(ProductContext);
+    
+    // Haal isAuth uit AuthContext
+    const { isAuth } = useContext(AuthContext);
     
     // Haal product-id uit URL parameters
     const { id } = useParams();
@@ -39,6 +45,14 @@ const ProductPage = () => {
 
         fetchData();
     }, [id]);
+
+    const handleReviewSubmit = (e) => {
+        e.preventDefault();
+        if (newReview.trim() !== "") {
+            setReviews([...reviews, { text: newReview, date: new Date() }]);
+            setNewReview("");
+        }
+    };
 
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error: {error}</p>;
@@ -89,11 +103,31 @@ const ProductPage = () => {
                     </div>
                 </div>
             </div>
-            <div className="review-section">
-                <h2>Write a Review</h2>
-                <textarea className="review-input" placeholder="Type your review here..."></textarea>
-                <button className="review-button">Send your review</button>
-            </div>
+            {isAuth && (
+                <div className="review-section">
+                    <h2>Write a Review</h2>
+                    <form onSubmit={handleReviewSubmit}>
+                        <textarea 
+                            className="review-input" 
+                            placeholder="Type your review here..."
+                            value={newReview}
+                            onChange={(e) => setNewReview(e.target.value)}
+                        ></textarea>
+                        <button type="submit" className="review-button">Send your review</button>
+                    </form>
+                </div>
+            )}
+            {reviews.length > 0 && (
+                <div className="reviews-list">
+                    <h2>Reviews</h2>
+                    {reviews.map((review, index) => (
+                        <div key={index} className="review-item">
+                            <p>{review.text}</p>
+                            <small>{review.date.toLocaleString()}</small>
+                        </div>
+                    ))}
+                </div>
+            )}
         </>
     );
 }
