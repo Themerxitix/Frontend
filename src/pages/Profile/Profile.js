@@ -18,9 +18,6 @@ function Profile() {
             ) : (
                 <p>Je bent niet ingelogd.</p>
             )}
-            <div className="profile-actions">
-                <button className="profile-button">Bewerk profiel</button>
-            </div>
         </div>
     );
 }
