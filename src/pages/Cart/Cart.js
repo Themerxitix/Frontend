@@ -47,7 +47,8 @@ const Cart = () => {
                 <button className="checkout-btn" onClick={clearCart}>Afrekenen</button>
             </div>
         </div>
-    )
-}
+        </>
+    );
+};
 
 export default Cart;
