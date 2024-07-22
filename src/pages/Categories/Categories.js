@@ -10,22 +10,17 @@ import Categoriedescription from "../Categoriesdescription/Categoriedescription"
 
 
 const Categories = () => {
-
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState(false);
     const [data, setData] = useState([]);
 
-    useEffect(()=> {
+    useEffect(() => {
         const controller = new AbortController();
         const fetchCategories = async () => {
-
             setLoading(true);
-
             try {
                 const result = await axios.get('https://fakestoreapi.com/products/categories');
-
                 if (result.data) {
-
                     setError(false);
                 }
 
