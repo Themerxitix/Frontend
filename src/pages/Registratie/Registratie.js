@@ -1,29 +1,33 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import axios from "axios";
 import "./Registratie.css";
+import { AuthContext } from "../../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 function Registratie() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [username, setUsername] = useState("");
     const [error, setError] = useState("");
-    const [success, setSuccess] = useState(false);
+    const { login } = useContext(AuthContext);
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError("");
-        setSuccess(false);
 
         try {
-            await axios.post('https://frontend-educational-backend.herokuapp.com/api/auth/signup', {
+            const response = await axios.post('https://frontend-educational-backend.herokuapp.com/api/auth/signup', {
                 email,
                 password,
                 username,
             });
-            setSuccess(true);
-            setEmail("");
-            setPassword("");
-            setUsername("");
+            
+            // Na succesvolle registratie, log de gebruiker in
+            await login(response.data.accessToken);
+            
+            // Navigeer naar de homepage of een welkomstpagina
+            navigate("/");
         } catch (e) {
             console.error("Registratie mislukt", e.response?.data?.message || e.message);
             setError(e.response?.data?.message || "Registratie mislukt. Probeer het opnieuw.");
