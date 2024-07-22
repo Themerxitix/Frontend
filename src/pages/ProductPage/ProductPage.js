@@ -89,8 +89,8 @@ const ProductPage = () => {
                     <img className="product-image" src={image} alt={title} />
                 </div>
                 <div className="product-details">
-                    <h1 className="product-title">{checktitle(title)}</h1>
-                    <p className="product-description">{checkdescription(description)}</p>
+                    <h1 className="product-title">{checkTitle(title)}</h1>
+                    <p className="product-description">{checkDescription(description)}</p>
                     <div className="product-price-container">
                         <span className="product-price">€{price.toFixed(2)}</span>
                         <button className="add-to-cart-button" onClick={() => addToCart(product, product.id)}>
