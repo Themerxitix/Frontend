@@ -30,11 +30,11 @@ function Login() {
     }
 
     return (
-        <main>
+        <div className="login-container">
             <h2>Login</h2>
             {error && <p className="error-message">{error}</p>}
-            <form onSubmit={handleSubmit}>
-                <div>
+            <form onSubmit={handleSubmit} className="login-form">
+                <div className="form-group">
                     <label htmlFor="username">Gebruikersnaam: </label>
                     <input 
                         id="username" 
@@ -44,7 +44,7 @@ function Login() {
                         required
                     />
                 </div>
-                <div>
+                <div className="form-group">
                     <label htmlFor="password">Wachtwoord: </label>
                     <input 
                         id="password" 
@@ -54,9 +54,9 @@ function Login() {
                         required
                     />
                 </div>
-                <button type="submit">Login</button>
+                <button type="submit" className="login-button">Login</button>
             </form>
-        </main>
+        </div>
     )
 }
 
