@@ -1,3 +1,16 @@
+.category-bar {
+  background-color: #f0f0f0;
+  padding: 10px 20px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+}
+
+.category-name {
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+}
+
 .cart-container {
   max-width: 800px;
   margin: 0 auto;
