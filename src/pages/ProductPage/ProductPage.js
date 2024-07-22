@@ -4,6 +4,7 @@ import { Link, useParams } from "react-router-dom";
 import "./ProductPage.css"
 import { CartContext } from "../../context/CartContext";
 import { ProductContext } from "../../context/ProductContext";
+import { toast } from 'react-toastify';
 
 const ProductPage = () => {
     // State voor laden, fouten en productdata
@@ -13,6 +14,7 @@ const ProductPage = () => {
 
     // Haal addToCart functie uit CartContext
     const { addToCart } = useContext(CartContext);
+    const [addedToCart, setAddedToCart] = useState(false);
     
     // Haal producten uit ProductContext
     const { products } = useContext(ProductContext);
@@ -75,8 +77,24 @@ const ProductPage = () => {
                     <p className="product-description">{checkDescription(description)}</p>
                     <div className="product-price-container">
                         <span className="product-price">€{price.toFixed(2)}</span>
-                        <button className="add-to-cart-button" onClick={() => addToCart(data, data.id)}>
-                            Add to cart
+                        <button 
+                            className="add-to-cart-button" 
+                            onClick={() => {
+                                addToCart(data, data.id);
+                                setAddedToCart(true);
+                                toast.success('Product added to cart!', {
+                                    position: "bottom-right",
+                                    autoClose: 2000,
+                                    hideProgressBar: false,
+                                    closeOnClick: true,
+                                    pauseOnHover: true,
+                                    draggable: true,
+                                    progress: undefined,
+                                });
+                                setTimeout(() => setAddedToCart(false), 2000);
+                            }}
+                        >
+                            {addedToCart ? 'Added!' : 'Add to cart'}
                         </button>
                     </div>
                 </div>
