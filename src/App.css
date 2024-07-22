@@ -48,4 +48,6 @@ body {
     .product {
         flex-grow: 1;
     }
+}body {
+  background-color: #f0f2f5;
 }
