@@ -21,38 +21,29 @@ const ProductPage = () => {
     const { id } = useParams();
 
     useEffect(() => {
-        const controller = new AbortController();
-
         const fetchData = async () => {
             setLoading(true);
             setError(false);
 
             try {
-                const response = await axios.get(`https://fakestoreapi.com/products/${id}`, {
-                    signal: controller.signal,
-                });
+                const response = await axios.get(`https://fakestoreapi.com/products/${id}`);
                 setData(response.data);
             } catch (e) {
-                if (!axios.isCancel(e)) {
-                    console.error(e);
-                    setError("Er is een fout opgetreden bij het ophalen van de productgegevens.");
-                }
+                console.error(e);
+                setError("Er is een fout opgetreden bij het ophalen van de productgegevens.");
             } finally {
                 setLoading(false);
             }
         };
 
         fetchData();
-
-        return function cleanup() {
-            controller.abort();
-        };
     }, [id]);
 
+    if (loading) return <p>Loading...</p>;
+    if (error) return <p>Error: {error}</p>;
+    if (!data) return null;
 
-    //Data die ik ophaal uithalen voor elke product
-
-    const {title, image, price, description, category } = data;
+    const {title, image, price, description, category} = data;
 
     const truncateText = (text, maxLength) => {
         if (text && text.length > maxLength) {
@@ -64,17 +55,8 @@ const ProductPage = () => {
     const checkDescription = (description) => truncateText(description, 90);
     const checkTitle = (title) => truncateText(title, 20);
 
-    const product = products.find((item) => {
-        return item.id === parseInt(id);
-    });
-
-
-
     return(
         <>
-            {loading && <p>Loading...</p>}
-            {error && <p>Error: could not fetch data!</p>}
-
             <div className="sub-nav">
 
                 <h3>

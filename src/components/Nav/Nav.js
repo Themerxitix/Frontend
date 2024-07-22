@@ -1,11 +1,19 @@
-import {NavLink} from "react-router-dom";
+import {NavLink, useNavigate} from "react-router-dom";
 import './Nav.css';
 import {AuthContext} from "../../context/AuthContext";
-import React, {useContext} from "react";
+import React, {useContext, useState} from "react";
 
 const Nav = () => {
     const {isAuth, logout} = useContext(AuthContext);
+    const [searchTerm, setSearchTerm] = useState('');
+    const navigate = useNavigate();
 
+    const handleSearch = (e) => {
+        e.preventDefault();
+        if (searchTerm.trim()) {
+            navigate(`/search?q=${encodeURIComponent(searchTerm.trim())}`);
+        }
+    };
 
     return(
 
@@ -61,6 +69,16 @@ const Nav = () => {
                         </li>
                     )}
                 </ul>
+                <form onSubmit={handleSearch} className="search-form">
+                    <input
+                        type="text"
+                        placeholder="Search products..."
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                        className="search-input"
+                    />
+                    <button type="submit" className="search-button">Search</button>
+                </form>
             </div>
         </nav>
     )
