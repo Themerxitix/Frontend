@@ -31,6 +31,10 @@ const ProductPage = () => {
             try {
                 const response = await axios.get(`https://fakestoreapi.com/products/${id}`);
                 setData(response.data);
+                
+                // Haal opgeslagen reviews op uit localStorage
+                const savedReviews = JSON.parse(localStorage.getItem(`reviews_${id}`)) || [];
+                setReviews(savedReviews);
             } catch (e) {
                 console.error(e);
                 setError("Er is een fout opgetreden bij het ophalen van de productgegevens.");
@@ -49,17 +53,21 @@ const ProductPage = () => {
                 id: Date.now(),
                 text: newReview,
                 rating: rating,
-                date: new Date(),
+                date: new Date().toISOString(),
                 user: user.username
             };
-            setReviews([...reviews, newReviewObject]);
+            const updatedReviews = [...reviews, newReviewObject];
+            setReviews(updatedReviews);
+            localStorage.setItem(`reviews_${id}`, JSON.stringify(updatedReviews));
             setNewReview("");
             setRating(0);
         }
     };
 
     const handleDeleteReview = (reviewId) => {
-        setReviews(reviews.filter(review => review.id !== reviewId));
+        const updatedReviews = reviews.filter(review => review.id !== reviewId);
+        setReviews(updatedReviews);
+        localStorage.setItem(`reviews_${id}`, JSON.stringify(updatedReviews));
     };
 
     if (loading) return <p>Loading...</p>;
