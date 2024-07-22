@@ -45,6 +45,7 @@ const Cart = () => {
                 <p>Totaal aantal items: {itemAmount}</p>
                 <h3 className="cart-total">Totaalprijs: €{total.toFixed(2)}</h3>
                 <button className="checkout-btn" onClick={clearCart}>Afrekenen</button>
+                <button className="clear-cart-btn" onClick={clearCart}>Verwijder alle producten</button>
             </div>
         </div>
         </>

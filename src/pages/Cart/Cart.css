@@ -90,7 +90,7 @@
   font-weight: bold;
 }
 
-.checkout-btn {
+.checkout-btn, .clear-cart-btn {
   background-color: #4CAF50;
   color: white;
   border: none;
@@ -98,8 +98,17 @@
   font-size: 18px;
   cursor: pointer;
   margin-top: 10px;
+  margin-right: 10px;
 }
 
-.checkout-btn:hover {
+.checkout-btn:hover, .clear-cart-btn:hover {
   background-color: #45a049;
+}
+
+.clear-cart-btn {
+  background-color: #f44336;
+}
+
+.clear-cart-btn:hover {
+  background-color: #d32f2f;
 }
