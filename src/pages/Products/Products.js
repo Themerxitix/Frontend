@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext, useCallback } from "react"
+import React, { useEffect, useState, useContext, useCallback, useMemo } from "react"
 import { Link, useLocation } from "react-router-dom";
 import "./Products.css"
 import { ProductContext } from "../../context/ProductContext";
@@ -9,7 +9,7 @@ const Products = () => {
     
     // Gebruik useLocation om de zoekquery uit de URL te halen
     const location = useLocation();
-    const searchParams = new URLSearchParams(location.search);
+    const searchParams = useMemo(() => new URLSearchParams(location.search), [location.search]);
     const initialSearchTerm = searchParams.get('search') || '';
 
     // State voor de zoekterm

@@ -3,7 +3,6 @@ import axios from "axios";
 import { Link, useParams } from "react-router-dom";
 import "./ProductPage.css"
 import { CartContext } from "../../context/CartContext";
-import { ProductContext } from "../../context/ProductContext";
 import { AuthContext } from "../../context/AuthContext";
 
 const ProductPage = () => {

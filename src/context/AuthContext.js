@@ -23,17 +23,14 @@ function AuthContextProvider({children})
 
     /*kijken of een token is opgeslagen*/
 
-    const login = useCallback(async (jwt_token, redirect) =>
-    {
+    const login = useCallback(async (jwt_token, redirect) => {
         /*token opslaan in local storage*/
         localStorage.setItem('token', jwt_token);
 
         /*username ophalen mbv asynch functie*/
-
-        try
-        {
+        try {
             /*hier haal ik de data in*/
-            const {data: {email, id, username}} = await axios.get(`https://frontend-educational-backend.herokuapp.com/api/user`, {
+            const response = await axios.get(`https://frontend-educational-backend.herokuapp.com/api/user`, {
                 headers:
                     {
                     'content-Type': 'application/json',
