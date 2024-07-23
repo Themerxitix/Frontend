@@ -7,16 +7,45 @@ import AuthContextProvider from "./context/AuthContext";
 import CartProvider from "./context/CartContext";
 import ProductProvider from "./context/ProductContext";
 
+class ErrorBoundary extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false };
+  }
+
+  static getDerivedStateFromError(error) {
+    return { hasError: true };
+  }
+
+  componentDidCatch(error, errorInfo) {
+    console.log('Error:', error, errorInfo);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return <h1>Something went wrong.</h1>;
+    }
+
+    return this.props.children;
+  }
+}
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-    <Router>
+  <React.StrictMode>
+    <ErrorBoundary>
+      <Router>
         <ProductProvider>
-            <CartProvider>
-                <AuthContextProvider>
-                    <App/>
-                </AuthContextProvider>
-            </CartProvider>
+          <CartProvider>
+            <AuthContextProvider>
+              <App/>
+            </AuthContextProvider>
+          </CartProvider>
         </ProductProvider>
-    </Router>
+      </Router>
+    </ErrorBoundary>
+  </React.StrictMode>
 );
+
+console.log('Application rendered');
 

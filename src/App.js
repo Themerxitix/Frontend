@@ -4,7 +4,7 @@ import Home from "./pages/Home/Home"
 import Products from "./pages/Products/Products"
 import ProductPage from "./pages/ProductPage/ProductPage"
 import Nav from "./components/Nav/Nav"
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import Categories from "./pages/Categories/Categories";
 import CategoriePage from "./pages/CategoriePage/CategoriePage";
 import NotFound from "./pages/NotFound/NotFound";
@@ -13,9 +13,14 @@ import Profile from "./pages/Profile/Profile";
 import { AuthContext } from "./context/AuthContext";
 import Registratie from "./pages/Registratie/Registratie";
 import Cart from "./pages/Cart/Cart"
+
 function App() {
     // Haal isAuth uit de AuthContext
     const { isAuth } = useContext(AuthContext)
+
+    useEffect(() => {
+        console.log('App component mounted');
+    }, []);
 
     return (
         <>
