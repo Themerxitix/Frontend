@@ -15,14 +15,15 @@ import Registratie from "./pages/Registratie/Registratie";
 import Cart from "./pages/Cart/Cart"
 
 function App() {
+    console.log('App function called');
+    
     // Haal isAuth uit de AuthContext
     const { isAuth } = useContext(AuthContext)
+    console.log('isAuth value:', isAuth);
 
     useEffect(() => {
         console.log('App component mounted');
     }, []);
-
-    console.log('App function called, isAuth:', isAuth);
 
     return (
         <>

@@ -9,6 +9,17 @@ import ProductProvider from "./context/ProductContext";
 
 console.log('All modules imported successfully');
 
+const logProviderRender = (ProviderComponent, name) => {
+  return ({ children }) => {
+    console.log(`Rendering ${name}`);
+    return <ProviderComponent>{children}</ProviderComponent>;
+  };
+};
+
+const LoggedProductProvider = logProviderRender(ProductProvider, 'ProductProvider');
+const LoggedCartProvider = logProviderRender(CartProvider, 'CartProvider');
+const LoggedAuthContextProvider = logProviderRender(AuthContextProvider, 'AuthContextProvider');
+
 class ErrorBoundary extends React.Component {
   constructor(props) {
     super(props);
@@ -39,13 +50,13 @@ root.render(
   <React.StrictMode>
     <ErrorBoundary>
       <Router>
-        <ProductProvider>
-          <CartProvider>
-            <AuthContextProvider>
+        <LoggedProductProvider>
+          <LoggedCartProvider>
+            <LoggedAuthContextProvider>
               <App/>
-            </AuthContextProvider>
-          </CartProvider>
-        </ProductProvider>
+            </LoggedAuthContextProvider>
+          </LoggedCartProvider>
+        </LoggedProductProvider>
       </Router>
     </ErrorBoundary>
   </React.StrictMode>
