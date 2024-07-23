@@ -22,6 +22,8 @@ function App() {
         console.log('App component mounted');
     }, []);
 
+    console.log('App function called, isAuth:', isAuth);
+
     return (
         <>
             <Nav />

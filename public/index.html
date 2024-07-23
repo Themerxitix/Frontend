@@ -18,6 +18,11 @@
     <div id="root"></div>
     <script>
       console.log('HTML loaded');
+      window.onerror = function(message, source, lineno, colno, error) {
+        console.log('Global error:', message, 'at', source, lineno, colno);
+        console.log('Error object:', error);
+        return false;
+      };
     </script>
   </body>
 </html>

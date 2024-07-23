@@ -7,6 +7,8 @@ import AuthContextProvider from "./context/AuthContext";
 import CartProvider from "./context/CartContext";
 import ProductProvider from "./context/ProductContext";
 
+console.log('All modules imported successfully');
+
 class ErrorBoundary extends React.Component {
   constructor(props) {
     super(props);
@@ -31,6 +33,8 @@ class ErrorBoundary extends React.Component {
 }
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+console.log('Root element found:', root);
+
 root.render(
   <React.StrictMode>
     <ErrorBoundary>
@@ -47,5 +51,5 @@ root.render(
   </React.StrictMode>
 );
 
-console.log('Application rendered');
+console.log('Render method called');
 
