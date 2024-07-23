@@ -4,10 +4,10 @@
 All-In-One Store is een moderne webapplicatie die gebruikers de mogelijkheid biedt om een breed assortiment aan producten online te bekijken en te bestellen. De applicatie biedt een gebruiksvriendelijke interface voor het browsen van producten, het beheren van een winkelwagen en het plaatsen van bestellingen.
 
 ## Functionaliteiten
-- Productoverzicht en detailpagina's
+- ProductPagina
 - Zoekfunctie voor producten
-- Categorie-indeling
-- Winkelwagenbeheer
+- Categorieeën
+- Winkelmand
 - Gebruikersregistratie en -authenticatie
 - Reviewsysteem voor producten
 
@@ -38,8 +38,5 @@ Je kunt een nieuw account aanmaken via de registratiepagina of inloggen met een 
 Het ontwerp van de webshop is gemaakt in Figma. Je kunt het ontwerp bekijken via de volgende link:
 [Figma Ontwerp](https://www.figma.com/file/y11qo85SWuWYJ0658wTKHB/Untitled?type=design&node-id=0-1&mode=design&t=SmSA4O3gtH5Ul4j5-0)
 
-## Bijdragen
-We verwelkomen bijdragen aan dit project. Als je een bug vindt of een nieuwe functie wilt voorstellen, open dan een issue of dien een pull request in.
 
-## Licentie
-Dit project is gelicenseerd onder de MIT-licentie.
+
