@@ -1,12 +1,9 @@
 import React, { useContext } from 'react';
 import { AuthContext } from '../../context/AuthContext';
-import { useNavigate } from 'react-router-dom';
 import './Profile.css';
 
 function Profile() {
-    const { user, logout } = useContext(AuthContext);
-    const navigate = useNavigate();
-
+    const { user } = useContext(AuthContext);
 
     return (
         <div className="profile-container">

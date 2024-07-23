@@ -36,7 +36,7 @@ const Products = () => {
         if (searchQuery) {
             setSearchTerm(searchQuery);
         }
-    }, [location.search]);
+    }, [location.search, searchParams]);
 
     return (
         <>

@@ -1,6 +1,5 @@
 import {createContext, useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
-import jwt_decode from "jwt-decode"
 import {checkToken} from "../content/checkToken";
 import axios from "axios";
 import React from 'react'
@@ -36,7 +35,7 @@ function AuthContextProvider({children})
                 status: "done"
             });
         }
-    }, []);
+    }, [login]);
 
     async function login(jwt_token, redirect)
     {

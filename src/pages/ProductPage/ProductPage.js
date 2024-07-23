@@ -17,8 +17,6 @@ const ProductPage = () => {
     const { addToCart } = useContext(CartContext);
     const [addedToCart, setAddedToCart] = useState(false);
     
-    const { products } = useContext(ProductContext);
-    
     const { isAuth, user } = useContext(AuthContext);
     
     const { id } = useParams();
