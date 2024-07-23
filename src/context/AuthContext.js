@@ -3,6 +3,7 @@ import {useNavigate} from "react-router-dom";
 import jwt_decode from "jwt-decode"
 import {checkToken} from "../content/checkToken";
 import axios from "axios";
+import React from 'react'
 
 /*hier maak ik gebruik van Context, dat doe ik aan de hand van de creatContext hook, deze kan een default meegegeven, maar dat is onder aan text al doorgegeven dus zet ik deze op null*/
 /*met een hoofdletter want het wordt een component die om de children heen wikkel, en het gebruik AuthContext op andere plekken ga ik exporteren*/
@@ -23,39 +24,25 @@ function AuthContextProvider({children})
 
     /*kijken of een token is opgeslagen*/
 
-    useEffect(()=>
-    {
-        /*kijk of een token in de local storage is, daarvoor spreek ik de local storage aan*/
-        /*variable storedToken, gebruiken om te kijken of iets daar word opgeslagen*/
-       const storedToken = localStorage.getItem('token');
+    useEffect(() => {
+        const storedToken = localStorage.getItem('token');
 
-       if (storedToken && checkToken(storedToken))
-       {
-          void login(storedToken);
-       }
-       else
-       {
-           /*roken niet meer geldig, uitloggen*/
-           setAuth(
-               {
-                   ...auth,
-                   isAuth: false,
-                   user: null,
-                   status: "done"
-               }
-           )
-       }
-
+        if (storedToken && checkToken(storedToken)) {
+            void login(storedToken);
+        } else {
+            setAuth({
+                isAuth: false,
+                user: null,
+                status: "done"
+            });
+        }
     }, []);
 
-    /*isAuth aanpassen met login knop naar ture, en logout naar false*/
-  async  function login(jtw_token, redirect)
+    async function login(jwt_token, redirect)
     {
 
-        const decodeToken = jwt_decode(jtw_token);
-
         /*token opslaan in local storage*/
-        localStorage.setItem('token', jtw_token);
+        localStorage.setItem('token', jwt_token);
 
         /*username ophalen mbv asynch functie*/
 
@@ -66,7 +53,7 @@ function AuthContextProvider({children})
                 headers:
                     {
                     'content-Type': 'application/json',
-                    Authorization: `Bearer ${ jtw_token }`
+                    Authorization: `Bearer ${jwt_token}`
                     }
             })
             setAuth({

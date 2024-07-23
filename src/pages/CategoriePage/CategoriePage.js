@@ -1,19 +1,19 @@
-import React, { useEffect, useState} from "react";
-import {Link, useParams} from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
 import axios from "axios";
-import "./CategoriePage.css"
-import  "../Categories/Categories";
-import categories from "../Categories/Categories";
+import "./CategoriePage.css";
 
 const CategoriePage = () =>{
-
+    // State voor laden, fouten en productdata
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState(false);
     const [data, setData] = useState([]);
 
+    // Haal categorie-id uit URL parameters
     const {id} = useParams();
 
     useEffect(() => {
+        // Maak een AbortController aan voor het annuleren van de request indien nodig
         const controller = new AbortController();
 
         const fetchData = async () => {
@@ -22,29 +22,31 @@ const CategoriePage = () =>{
             try {
                 setError(false);
 
-                const response = await axios.get(  " https://fakestoreapi.com/products/category/" + id, {
+                // Haal producten op voor de specifieke categorie
+                const response = await axios.get(`https://fakestoreapi.com/products/category/${id}`, {
                     signal: controller.signal,
-                } );
+                });
                 setData(response.data);
 
-            }catch (e){
-
-                if (axios.isCancel(e)){
-                    /*console.log("The axios request was cancelled")*/
-                }else {
+            } catch (e) {
+                if (axios.isCancel(e)) {
+                    // Request is geannuleerd, geen actie nodig
+                } else {
                     console.error(e)
                     setError(true)
                 }
+            } finally {
+                setLoading(false);
             }
-            setLoading(false);
         }
+        
         void fetchData();
-        return function cleanup(){
+        
+        // Cleanup functie om request te annuleren bij unmount
+        return function cleanup() {
             controller.abort();
         }
-    },  [] )
-
-    //Data die ik ophaal uithalen voor elke product
+    }, [id])
 
     return(
         <>
@@ -52,37 +54,29 @@ const CategoriePage = () =>{
             {error && <p>Error: could not fetch data!</p>}
 
             <div className="sub-nav">
-            <h3>
-                <h3 className="separate-categorie-name"> {id.toUpperCase().charAt(0)+ id.substring(1,id.length)} </h3>
-            </h3>
-
-            <h3>
-                    <Link className="back-to-categories" to="/categories"> Categories</Link>
-            </h3>
+                <h3 className="separate-categorie-name">
+                    {id.charAt(0).toUpperCase() + id.slice(1)}
+                </h3>
+                <h3>
+                    <Link className="back-to-categories" to="/categories">Categories</Link>
+                </h3>
             </div>
 
             <ul className="list-categorie-page">
-                {data.map(product => {
-                    return (
-
-                        <div className="card-categorie-page" key={product.id}>
-                            <Link  className="text-categorie-page" to={`/products/${product.id}`}>
-                                <div>
-                                    <img className="img-categorie-page" src={product.image} alt={product.title}/>
-                                    <h3 className="titel-categorie-page">{product.title.slice(0, 25)}</h3>
-                                </div>
-                                <span className="categorie-price">€ {product.price}</span>
-                            </Link>
-                        </div>
-                    )
-                })}
-
+                {data.map(product => (
+                    <div className="card-categorie-page" key={product.id}>
+                        <Link className="text-categorie-page" to={`/products/${product.id}`}>
+                            <div>
+                                <img className="img-categorie-page" src={product.image} alt={product.title}/>
+                                <h3 className="titel-categorie-page">{product.title.slice(0, 25)}</h3>
+                            </div>
+                            <span className="categorie-price">€ {product.price}</span>
+                        </Link>
+                    </div>
+                ))}
             </ul>
-
         </>
     );
-
 }
-
 
 export default CategoriePage;

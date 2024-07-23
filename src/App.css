@@ -49,3 +49,51 @@ body {
         flex-grow: 1;
     }
 }
+
+body {
+  background-color: #f0f5ff; /* Lichte hemelsblauw achtergrond */
+  color: #333333; /* Donkergrijze tekst voor betere leesbaarheid */
+  font-family: 'Arial', sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #4a69bd; /* Donkerblauw voor koppen */
+}
+
+a {
+  color: #0652dd; /* Helder blauw voor links */
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  color: #1e3799; /* Donkerder blauw voor hover effect */
+}
+
+button {
+  background-color: #4a69bd; /* Donkerblauw voor knoppen */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #1e3799; /* Donkerder blauw voor hover effect */
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.card {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-bottom: 20px;
+}

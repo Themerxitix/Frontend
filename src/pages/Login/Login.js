@@ -1,57 +1,63 @@
-import {AuthContext} from "../../context/AuthContext";
-import React, {useContext, useState} from "react";
+import { AuthContext } from "../../context/AuthContext";
+import React, { useContext, useState } from "react";
 import "./Login.css"
 import axios from "axios";
+
 function Login() {
+    // Haal login functie uit AuthContext
+    const { login } = useContext(AuthContext);
 
-    const {login} =useContext(AuthContext);
-
-    /*const [email, setEmail] =useState("");*/
-    const [password, setPassword] = useState("");
+    // State voor formuliervelden en foutmelding
     const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+    const [error, setError] = useState("");
 
-    const handleSubmit = async (e) =>
-    {
+    const handleSubmit = async (e) => {
         e.preventDefault();
+        setError("");
 
-        try
-        {
+        try {
             const res = await axios.post('https://frontend-educational-backend.herokuapp.com/api/auth/signin', {
-                /*email: email,*/
-                username: username,
-                password: password
+                username,
+                password
             });
+            // Roep login functie aan met access token en redirect pad
             login(res.data.accessToken, "/profile");
-
+        } catch (e) {
+            console.error("Login mislukt", e.response?.data?.message || e.message);
+            setError("Onjuiste gebruikersnaam of wachtwoord. Probeer het opnieuw.");
         }
-        catch (e)
-        {
-            console.error("Onjuist email en wachtwoord combinatie")
-        }
-
-
     }
 
-    return(
-        <>
-            <main>
-                <h2>Login</h2>
-                <form onSubmit={handleSubmit}>
-                    <div>
-                        <label  htmlFor="username">Username: </label>
-                        <input id="username" type="username" value={username} onChange={(e => setUsername(e.target.value))} autoComplete="off"/>
-                    </div>
-
-                    <div>
-                        <label htmlFor="password">Wachtwoord: </label>
-                        <input id="password" type="password" value={password} onChange={(e => setPassword(e.target.value))} autoComplete="off"/>
-                    </div>
-                    <button type="submit">Login</button>
-                </form>
-        </main>
-        </>
+    return (
+        <div className="login-container">
+            <h2>Login</h2>
+            {error && <p className="error-message">{error}</p>}
+            <form onSubmit={handleSubmit} className="login-form">
+                <div className="form-group">
+                    <label htmlFor="username">Gebruikersnaam: </label>
+                    <input 
+                        id="username" 
+                        type="text" 
+                        value={username} 
+                        onChange={(e) => setUsername(e.target.value)} 
+                        required
+                    />
+                </div>
+                <div className="form-group">
+                    <label htmlFor="password">Wachtwoord: </label>
+                    <input 
+                        id="password" 
+                        type="password" 
+                        value={password} 
+                        onChange={(e) => setPassword(e.target.value)} 
+                        required
+                    />
+                </div>
+                <button type="submit" className="login-button">Login</button>
+            </form>
+        </div>
     )
-
 }
 
 export default Login;

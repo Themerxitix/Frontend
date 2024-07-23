@@ -1,69 +1,75 @@
-import {useEffect, useState} from "react"
-import axios from "axios";
-import React from "react";
-import {Routes,Route, Link } from "react-router-dom";
+import React, { useEffect, useState, useContext, useCallback } from "react"
+import { Link, useLocation } from "react-router-dom";
 import "./Products.css"
+import { ProductContext } from "../../context/ProductContext";
 
 const Products = () => {
-    const [loading, setLoading] = useState(false)
-    const [error, setError] = useState(false);
-    const [data, setData] = useState([]);
+    // Haal producten en gerelateerde data/functies op uit de ProductContext
+    const { products, loading, error, refreshProducts } = useContext(ProductContext);
+    
+    // Gebruik useLocation om de zoekquery uit de URL te halen
+    const location = useLocation();
+    const searchParams = new URLSearchParams(location.search);
+    const initialSearchTerm = searchParams.get('search') || '';
 
-    useEffect(()=> {
-        const controller = new AbortController();
-    const fetchData = async () => {
+    // State voor de zoekterm
+    const [searchTerm, setSearchTerm] = useState(initialSearchTerm);
+    
+    // State voor gefilterde producten
+    const [filteredProducts, setFilteredProducts] = useState([]);
 
-        setLoading(true);// hier zet ik loading op true
+    // Functie om producten te filteren op basis van de zoekterm
+    const filterProducts = useCallback(() => {
+        return products.filter(product => 
+            product.title.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+    }, [products, searchTerm]);
 
-        //try and catch om erro te onderscheppen
-        try {
+    // Effect om gefilterde producten bij te werken wanneer producten of zoekterm veranderen
+    useEffect(() => {
+        setFilteredProducts(filterProducts());
+    }, [filterProducts]);
 
-            const response = await axios.get("https://fakestoreapi.com/products"); //ophalen van de API
-
-            // als we data ontvangen, zet ik de error op fales
-            if (response.data){
-
-                setError(false);
-            }
-
-            setData(response.data); // zet de data in de data state
-
-
-        } catch (e) {
-            console.error(e);
+    // Effect om de zoekterm bij te werken wanneer de URL verandert
+    useEffect(() => {
+        const searchQuery = searchParams.get('search');
+        if (searchQuery) {
+            setSearchTerm(searchQuery);
         }
-        setLoading(false)// wanneer boven staand goed gaat zet ik de setloading op false
-    }
-        void fetchData();
-        return function cleanup(){
-            controller.abort();
-        }
-    },[] )
-
+    }, [location.search]);
 
     return (
-
         <>
-            {loading && <p>Loading...</p>}  {/*als loading is true, wordt dit getoond*/}
-            {error && <p>Error: could not fetch data!</p>}  {/*als error is true, wordt dit getoond*/}
+            {/* Toon laad- of foutbericht indien nodig */}
+            {loading && <p>Loading...</p>}
+            {error && <p>Error: {error}</p>}
 
-            {/*<Link type="link" onClick={fetchData}>Show Products</Link>*/}
+            {/* Zoekbalk en ververs-knop */}
+            <div className="search-bar">
+                <input
+                    type="text"
+                    placeholder="Zoek producten..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                />
+                <button onClick={refreshProducts}>Zoeken</button>
+            </div>
 
-            <div className="list-product">
-
-                {data.map(product => {
-                    return (
-                        <div className="card-product" key={product.id}>
-                          <Link className="text-product" to={`/products/${product.id}`}>
-                                <div>
-                                    <img className="img-product" src={product.image} alt={product.title}/>
-                                    <h3 className="titel-product">{product.title.slice(0, 20)}</h3>
-                                </div>
-                                <span className="product-price">€ {product.price}</span>
-                            </Link>
-                        </div>
-                    )
-                })}
+            {/* Productengrid */}
+            <div className="product-grid">
+                {filteredProducts.map(product => (
+                    <div className="product-card" key={product.id}>
+                        <Link className="product-link" to={`/products/${product.id}`}>
+                            <div className="product-image-container">
+                                <img className="product-image" src={product.image} alt={product.title}/>
+                            </div>
+                            <div className="product-info">
+                                <h3 className="product-title">{product.title.slice(0, 20)}</h3>
+                                <span className="product-price">€ {product.price.toFixed(2)}</span>
+                            </div>
+                        </Link>
+                    </div>
+                ))}
             </div>
         </>
     )
