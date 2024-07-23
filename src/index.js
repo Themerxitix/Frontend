@@ -7,11 +7,11 @@ import AuthContextProvider from "./context/AuthContext";
 import CartProvider from "./context/CartContext";
 import ProductProvider from "./context/ProductContext";
 
-console.log('All modules imported successfully');
+console.log('index.js: All modules imported successfully');
 
 const logProviderRender = (ProviderComponent, name) => {
   return ({ children }) => {
-    console.log(`Rendering ${name}`);
+    console.log(`index.js: Rendering ${name}`);
     return <ProviderComponent>{children}</ProviderComponent>;
   };
 };
@@ -19,6 +19,8 @@ const logProviderRender = (ProviderComponent, name) => {
 const LoggedProductProvider = logProviderRender(ProductProvider, 'ProductProvider');
 const LoggedCartProvider = logProviderRender(CartProvider, 'CartProvider');
 const LoggedAuthContextProvider = logProviderRender(AuthContextProvider, 'AuthContextProvider');
+
+console.log('index.js: Providers created');
 
 class ErrorBoundary extends React.Component {
   constructor(props) {
@@ -43,24 +45,31 @@ class ErrorBoundary extends React.Component {
   }
 }
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-console.log('Root element found:', root);
+const rootElement = document.getElementById('root');
+console.log('index.js: Root element found:', rootElement);
 
-root.render(
-  <React.StrictMode>
-    <ErrorBoundary>
-      <Router>
-        <LoggedProductProvider>
-          <LoggedCartProvider>
-            <LoggedAuthContextProvider>
-              <App/>
-            </LoggedAuthContextProvider>
-          </LoggedCartProvider>
-        </LoggedProductProvider>
-      </Router>
-    </ErrorBoundary>
-  </React.StrictMode>
-);
+if (rootElement) {
+  const root = ReactDOM.createRoot(rootElement);
+  console.log('index.js: Root created');
 
-console.log('Render method called');
+  root.render(
+    <React.StrictMode>
+      <ErrorBoundary>
+        <Router>
+          <LoggedProductProvider>
+            <LoggedCartProvider>
+              <LoggedAuthContextProvider>
+                <App/>
+              </LoggedAuthContextProvider>
+            </LoggedCartProvider>
+          </LoggedProductProvider>
+        </Router>
+      </ErrorBoundary>
+    </React.StrictMode>
+  );
+
+  console.log('index.js: Render method called');
+} else {
+  console.error('index.js: Root element not found');
+}
 
