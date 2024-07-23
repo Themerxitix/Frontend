@@ -1,4 +1,4 @@
-.login-container {
+.registration-container {
     max-width: 400px;
     margin: 0 auto;
     padding: 2rem;
@@ -7,7 +7,7 @@
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.login-form {
+.registration-form {
     display: flex;
     flex-direction: column;
 }
@@ -29,7 +29,7 @@
     border-radius: 4px;
 }
 
-.login-button {
+.register-button {
     background-color: #4a69bd;
     color: white;
     border: none;
@@ -39,8 +39,13 @@
     transition: background-color 0.3s ease;
 }
 
-.login-button:hover {
+.register-button:hover {
     background-color: #1e3799;
+}
+
+.success-message {
+    color: #27ae60;
+    margin-bottom: 1rem;
 }
 
 .error-message {

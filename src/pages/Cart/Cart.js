@@ -6,14 +6,25 @@ import './Cart.css';
 const Cart = () => {
     const { cart, clearCart, total, itemAmount, removeFromCart, increaseAmount, decreaseAmount } = useContext(CartContext);
     const [isLoading, setIsLoading] = useState(true);
+    const [orderPlaced, setOrderPlaced] = useState(false);
 
     useEffect(() => {
         // Simuleer een laadtijd
         setTimeout(() => setIsLoading(false), 1000);
     }, []);
 
+    const handleCheckout = () => {
+        clearCart();
+        setOrderPlaced(true);
+        setTimeout(() => setOrderPlaced(false), 3000); // Verberg het bericht na 3 seconden
+    };
+
     if (isLoading) {
         return <div className="loading">Laden...</div>;
+    }
+
+    if (orderPlaced) {
+        return <h2 className="order-success">Bestelling is gelukt!</h2>;
     }
 
     if (cart.length === 0) {
@@ -44,7 +55,8 @@ const Cart = () => {
             <div className="cart-summary">
                 <p>Totaal aantal items: {itemAmount}</p>
                 <h3 className="cart-total">Totaalprijs: €{total.toFixed(2)}</h3>
-                <button className="checkout-btn" onClick={clearCart}>Afrekenen</button>
+                <button className="checkout-btn" onClick={handleCheckout}>Afrekenen</button>
+                <button className="clear-cart-btn" onClick={clearCart}>Verwijder alle producten</button>
             </div>
         </div>
         </>

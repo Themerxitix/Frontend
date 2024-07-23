@@ -1,31 +1,33 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import axios from "axios";
+import "./Registratie.css";
+import { AuthContext } from "../../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 function Registratie() {
-    // State voor formuliervelden
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [username, setUsername] = useState("");
     const [error, setError] = useState("");
-    const [success, setSuccess] = useState(false);
+    const { login } = useContext(AuthContext);
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError("");
-        setSuccess(false);
 
         try {
-            await axios.post('https://frontend-educational-backend.herokuapp.com/api/auth/signup', {
+            const response = await axios.post('https://frontend-educational-backend.herokuapp.com/api/auth/signup', {
                 email,
                 password,
                 username,
             });
-            console.log("Registratie gelukt");
-            setSuccess(true);
-            // Reset formuliervelden na succesvolle registratie
-            setEmail("");
-            setPassword("");
-            setUsername("");
+            
+            // Na succesvolle registratie, log de gebruiker in
+            await login(response.data.accessToken);
+            
+            // Navigeer naar de homepage of een welkomstpagina
+            navigate("/");
         } catch (e) {
             console.error("Registratie mislukt", e.response?.data?.message || e.message);
             setError(e.response?.data?.message || "Registratie mislukt. Probeer het opnieuw.");
@@ -33,12 +35,11 @@ function Registratie() {
     }
 
     return (
-        <main>
+        <div className="registration-container">
             <h2>Registreren</h2>
-            {success && <p className="success-message">Registratie succesvol! U kunt nu inloggen.</p>}
             {error && <p className="error-message">{error}</p>}
-            <form onSubmit={handleSubmit}>
-                <div>
+            <form onSubmit={handleSubmit} className="registration-form">
+                <div className="form-group">
                     <label htmlFor="username">Gebruikersnaam:</label>
                     <input
                         id="username"
@@ -48,7 +49,7 @@ function Registratie() {
                         required
                     />
                 </div>
-                <div>
+                <div className="form-group">
                     <label htmlFor="email">E-mail:</label>
                     <input
                         id="email"
@@ -58,7 +59,7 @@ function Registratie() {
                         required
                     />
                 </div>
-                <div>
+                <div className="form-group">
                     <label htmlFor="password">Wachtwoord:</label>
                     <input
                         id="password"
@@ -68,9 +69,9 @@ function Registratie() {
                         required
                     />
                 </div>
-                <button type="submit">Registreren</button>
+                <button type="submit" className="register-button">Registreren</button>
             </form>
-        </main>
+        </div>
     );
 }
 

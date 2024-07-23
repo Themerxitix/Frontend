@@ -7,24 +7,20 @@ import { ProductContext } from "../../context/ProductContext";
 import { AuthContext } from "../../context/AuthContext";
 
 const ProductPage = () => {
-    // State voor laden, fouten en productdata
-    const [loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
     const [data, setData] = useState(null);
     const [reviews, setReviews] = useState([]);
     const [newReview, setNewReview] = useState("");
+    const [rating, setRating] = useState(0);
 
-    // Haal addToCart functie uit CartContext
     const { addToCart } = useContext(CartContext);
     const [addedToCart, setAddedToCart] = useState(false);
     
-    // Haal producten uit ProductContext
     const { products } = useContext(ProductContext);
     
-    // Haal isAuth uit AuthContext
-    const { isAuth } = useContext(AuthContext);
+    const { isAuth, user } = useContext(AuthContext);
     
-    // Haal product-id uit URL parameters
     const { id } = useParams();
 
     useEffect(() => {
@@ -35,6 +31,10 @@ const ProductPage = () => {
             try {
                 const response = await axios.get(`https://fakestoreapi.com/products/${id}`);
                 setData(response.data);
+                
+                // Haal opgeslagen reviews op uit localStorage
+                const savedReviews = JSON.parse(localStorage.getItem(`reviews_${id}`)) || [];
+                setReviews(savedReviews);
             } catch (e) {
                 console.error(e);
                 setError("Er is een fout opgetreden bij het ophalen van de productgegevens.");
@@ -48,10 +48,26 @@ const ProductPage = () => {
 
     const handleReviewSubmit = (e) => {
         e.preventDefault();
-        if (newReview.trim() !== "") {
-            setReviews([...reviews, { text: newReview, date: new Date() }]);
+        if (newReview.trim() !== "" && rating > 0) {
+            const newReviewObject = {
+                id: Date.now(),
+                text: newReview,
+                rating: rating,
+                date: new Date().toISOString(),
+                user: user.username
+            };
+            const updatedReviews = [...reviews, newReviewObject];
+            setReviews(updatedReviews);
+            localStorage.setItem(`reviews_${id}`, JSON.stringify(updatedReviews));
             setNewReview("");
+            setRating(0);
         }
+    };
+
+    const handleDeleteReview = (reviewId) => {
+        const updatedReviews = reviews.filter(review => review.id !== reviewId);
+        setReviews(updatedReviews);
+        localStorage.setItem(`reviews_${id}`, JSON.stringify(updatedReviews));
     };
 
     if (loading) return <p>Loading...</p>;
@@ -62,18 +78,17 @@ const ProductPage = () => {
 
     const truncateText = (text, maxLength) => {
         if (text && text.length > maxLength) {
-            return `${text.slice(0, maxLength)}...${text.slice(-5)}`;
+            return `${text.slice(0, maxLength)}...`;
         }
         return text;
     };
 
-    const checkDescription = (description) => truncateText(description, 90);
-    const checkTitle = (title) => truncateText(title, 20);
+    const checkDescription = (description) => truncateText(description, 150);
+    const checkTitle = (title) => truncateText(title, 50);
 
     return(
-        <>
+        <div className="product-page-container">
             <div className="sub-nav">
-
                 <h3>
                     <Link className="back-to-categories" to={`/categories/${category}`}>
                         {category}
@@ -98,37 +113,66 @@ const ProductPage = () => {
                                 setTimeout(() => setAddedToCart(false), 2000);
                             }}
                         >
-                            {addedToCart ? 'Added!' : 'Add to cart'}
+                            {addedToCart ? 'Toegevoegd!' : 'Toevoegen aan winkelwagen'}
                         </button>
                     </div>
                 </div>
             </div>
-            {isAuth && (
-                <div className="review-section">
-                    <h2>Write a Review</h2>
-                    <form onSubmit={handleReviewSubmit}>
-                        <textarea 
-                            className="review-input" 
-                            placeholder="Type your review here..."
-                            value={newReview}
-                            onChange={(e) => setNewReview(e.target.value)}
-                        ></textarea>
-                        <button type="submit" className="review-button">Send your review</button>
-                    </form>
-                </div>
-            )}
-            {reviews.length > 0 && (
-                <div className="reviews-list">
-                    <h2>Reviews</h2>
-                    {reviews.map((review, index) => (
-                        <div key={index} className="review-item">
-                            <p>{review.text}</p>
-                            <small>{review.date.toLocaleString()}</small>
-                        </div>
-                    ))}
-                </div>
-            )}
-        </>
+            
+            <div className="reviews-container">
+                {isAuth && (
+                    <div className="review-section">
+                        <h2>Schrijf een review</h2>
+                        <form onSubmit={handleReviewSubmit}>
+                            <div className="rating-input">
+                                {[1, 2, 3, 4, 5].map((star) => (
+                                    <span
+                                        key={star}
+                                        onClick={() => setRating(star)}
+                                        style={{ cursor: 'pointer', color: star <= rating ? 'gold' : 'gray' }}
+                                    >
+                                        ★
+                                    </span>
+                                ))}
+                            </div>
+                            <textarea 
+                                className="review-input" 
+                                placeholder="Typ hier je review..."
+                                value={newReview}
+                                onChange={(e) => setNewReview(e.target.value)}
+                            ></textarea>
+                            <button type="submit" className="review-button">Verstuur review</button>
+                        </form>
+                    </div>
+                )}
+                {reviews.length > 0 && (
+                    <div className="reviews-list">
+                        <h2>Reviews</h2>
+                        {reviews.map((review) => (
+                            <div key={review.id} className="review-item">
+                                <div className="review-header">
+                                    <span className="review-rating">
+                                        {[1, 2, 3, 4, 5].map((star) => (
+                                            <span key={star} style={{ color: star <= review.rating ? 'gold' : 'gray' }}>
+                                                ★
+                                            </span>
+                                        ))}
+                                    </span>
+                                    <span className="review-user">{review.user}</span>
+                                </div>
+                                <p>{review.text}</p>
+                                <small>{review.date.toLocaleString()}</small>
+                                {isAuth && user.username === review.user && (
+                                    <button onClick={() => handleDeleteReview(review.id)} className="delete-review-button">
+                                        Verwijder
+                                    </button>
+                                )}
+                            </div>
+                        ))}
+                    </div>
+                )}
+            </div>
+        </div>
     );
 }
 

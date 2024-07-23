@@ -11,60 +11,59 @@ const Nav = () => {
     const handleSearch = (e) => {
         e.preventDefault();
         if (searchTerm.trim()) {
-            navigate(`/search?q=${encodeURIComponent(searchTerm.trim())}`);
+            navigate(`/products?search=${encodeURIComponent(searchTerm.trim())}`);
         }
     };
 
     return(
-
         <nav className="navbar" aria-label="Hoofdnavigatie">
             <div className="nav-container">
                 <NavLink to="/" className="nav-logo" aria-label="Home">
-                    All-In-One Store
+                    De Webshop
                 </NavLink>
                 <ul className="nav-menu">
                     <li className="nav-item">
                         <NavLink to="/" className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}>
-                            Home
+                            De Webshop
                         </NavLink>
                     </li>
                     <li className="nav-item">
                         <NavLink to="/products" className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}>
-                            Products
+                            Producten
                         </NavLink>
                     </li>
                     <li className="nav-item">
                         <NavLink to="/categories" className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}>
-                            Categories
+                            Categorieën
                         </NavLink>
                     </li>
                     <li className="nav-item">
                         <NavLink to="/cart" className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}>
-                            Cart
+                            Winkelwagen
                         </NavLink>
                     </li>
                     {!isAuth && (
                         <li className="nav-item">
                             <NavLink to="/registratie" className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}>
-                                Registration
+                                Registratie
                             </NavLink>
                         </li>
                     )}
                     {isAuth && (
                         <li className="nav-item">
                             <NavLink to="/profile" className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}>
-                                Profile
+                                Profiel
                             </NavLink>
                         </li>
                     )}
                     {isAuth ? (
                         <li className="nav-item">
-                            <button className="nav-button" onClick={logout}>Logout</button>
+                            <button className="nav-button" onClick={logout}>Uitloggen</button>
                         </li>
                     ) : (
                         <li className="nav-item">
                             <NavLink to="/login" className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}>
-                                Login
+                                Inloggen
                             </NavLink>
                         </li>
                     )}
@@ -72,12 +71,12 @@ const Nav = () => {
                 <form onSubmit={handleSearch} className="search-form">
                     <input
                         type="text"
-                        placeholder="Search products..."
+                        placeholder="Zoek producten..."
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
                         className="search-input"
                     />
-                    <button type="submit" className="search-button">Search</button>
+                    <button type="submit" className="search-button">Zoeken</button>
                 </form>
             </div>
         </nav>
