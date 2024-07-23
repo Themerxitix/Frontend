@@ -34,7 +34,7 @@ De applicatie zal nu starten en is toegankelijk via `http://localhost:3001` in j
 Je kunt een nieuw account aanmaken via de registratiepagina of inloggen met een bestaand account.
 
 ## Design
-Het ontwerp van de webshop is gemaakt in Figma. Je kunt het ontwerp bekijken via de volgende link:
+Het ontwerp van de webshop is gemaakt in Figma.
 [Figma Ontwerp](https://www.figma.com/file/y11qo85SWuWYJ0658wTKHB/Untitled?type=design&node-id=0-1&mode=design&t=SmSA4O3gtH5Ul4j5-0)
 
 
