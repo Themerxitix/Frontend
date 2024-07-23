@@ -23,6 +23,48 @@ function AuthContextProvider({children})
 
     /*kijken of een token is opgeslagen*/
 
+    const login = useCallback(async (jwt_token, redirect) =>
+    {
+        /*token opslaan in local storage*/
+        localStorage.setItem('token', jwt_token);
+
+        /*username ophalen mbv asynch functie*/
+
+        try
+        {
+            /*hier haal ik de data in*/
+            const {data: {email, id, username}} = await axios.get(`https://frontend-educational-backend.herokuapp.com/api/user`, {
+                headers:
+                    {
+                    'content-Type': 'application/json',
+                    Authorization: `Bearer ${jwt_token}`
+                    }
+            })
+            setAuth({
+                ...auth,
+                isAuth: true,
+                user:
+                    {
+                        email: email,
+                        id: id,
+                        username: username
+
+                    },
+                status: "done"
+            });
+
+            if (redirect)
+            {
+                navigate(redirect);
+            }
+
+        }
+        catch (e)
+        {
+            console.error(e);
+        }
+    }, [auth, navigate]);
+
     useEffect(() => {
         const storedToken = localStorage.getItem('token');
 
@@ -36,8 +78,6 @@ function AuthContextProvider({children})
             });
         }
     }, [login]);
-
-    async function login(jwt_token, redirect)
     {
 
         /*token opslaan in local storage*/
