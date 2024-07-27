@@ -1,5 +1,5 @@
 # De Webshop
-![Hoofdpagina](./public/Hoofdpagina.jpg "Hoofdpagina") 
+![Hoofdpagina](./public/Hoofdpagina.png "Hoofdpagina") 
 ## Beschrijving
 All-In-One Store is een moderne webapplicatie die gebruikers de mogelijkheid biedt om een breed assortiment aan producten online te bekijken en te bestellen. De applicatie biedt een gebruiksvriendelijke interface voor het browsen van producten, het beheren van een winkelwagen en het plaatsen van bestellingen.
 
