@@ -1,5 +1,5 @@
 # De Webshop
-
+![2024-07-27 02_14_39.jpg](..%2F..%2F..%2F..%2FPictures%2F2024-07-27%2002_14_39.jpg)
 ## Beschrijving
 All-In-One Store is een moderne webapplicatie die gebruikers de mogelijkheid biedt om een breed assortiment aan producten online te bekijken en te bestellen. De applicatie biedt een gebruiksvriendelijke interface voor het browsen van producten, het beheren van een winkelwagen en het plaatsen van bestellingen.
 
